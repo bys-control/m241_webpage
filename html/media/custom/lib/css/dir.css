@@ -1,0 +1,27 @@
+h1 {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 18px;
+	font-weight: bold;
+	color: #000000;
+} 
+
+div.file
+{
+	width: 16;
+	height: 16;
+	background: url(/html/media/custom/lib/images/file.png) no-repeat center left;
+}
+
+div.parent
+{
+	width: 16;
+	height: 16;
+	background: url(/html/media/custom/lib/images/parent.png) no-repeat center left;
+}
+
+div.folder
+{
+	width: 16;
+	height: 16;
+	background: url(/html/media/custom/lib/images/folder.png) no-repeat center left;
+}

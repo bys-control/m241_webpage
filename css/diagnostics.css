@@ -1,0 +1,185 @@
+/*Main Field CSS*/
+.fieldContainer{
+    position: relative;
+    border: 2px solid #EAEAEA;
+    padding: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-right: 5px;
+}
+.fieldTitle{
+    position: absolute;
+    font-weight:bold;
+    font-size: 12px;
+    margin-top: -24px;
+    z-index: 1;
+}
+.fieldValue{
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: -5px;
+    margin-bottom: 0;
+}
+.tblValue{
+    text-align:right;
+    padding-right: 20px;
+}
+/*Subfield CSS*/
+.subFieldGroup{
+    margin-top: 3px;
+    margin-bottom: 10px;
+}
+.subFieldTitle{
+    position: relative;
+    font-weight: normal;
+    font-size: 12px;
+    margin-top: -10px;
+}
+.subFieldTitle a{
+    text-decoration: underline;
+}
+.subFieldValue{
+    position: relative;
+    font-weight: bold;
+    font-size: 13px;
+    margin-top: -10px;
+}
+/*Service status styles*/
+.status-ok{
+    color: #4FA600;
+}
+.status-error{
+    color: #EB5B25;
+}
+.status-warning{
+    color: #FFD100;
+}
+.status-none{
+    color: #333;
+}
+.status-unknown{
+    color: #9FA0A4;
+}
+/*Action buttons*/
+.reset, .show{
+    position: relative;
+    margin-top: -25px;
+    text-align:center;
+    cursor: pointer;
+    padding-bottom: 5px;
+}
+.reset:hover .imgText{
+    color: #009B3E;
+}
+.no-margin{
+    margin: 0;
+    padding: 0;
+}
+.imgText{
+    margin-top: -20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/*Scanner Status page*/
+.scanner .devTable{
+    border-spacing: 5px 15px;
+    margin: -15px auto 0 auto;
+}
+.scanner img.up, .scanner img.down{
+    position: absolute;
+    left: 96%;
+    cursor: pointer;
+}
+.scanner img.up{
+    margin-top: 20px;
+}
+.scanner img.down{
+    margin-top: 205px;
+}
+.scanner .devTable td{
+    width: 30px;
+    height: 30px;
+}
+.scanner .devCell{
+    border: 2px solid #A0A0A0;
+    background-color: #EAEAEA !important;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+.scanner .numCell{
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    border: 0;
+}
+.scanner .devPopup{
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    background: #FFF6D5;
+}
+.scanner .devPopup span{
+    font-weight: bold;
+}
+.scanner .ip-container{
+    position: absolute;
+    margin-top: 0;
+    margin-left: 40%;
+    height: 20px;
+    font-weight:bold;
+    font-size: 14px;
+    color: #2FB4E9;
+    z-index: 1;
+}
+.scanner .ss-scan{
+    background-color: #87D200 !important;
+    background-image:url('../images/check_w.png');
+    background-repeat:no-repeat;
+    background-position:center;
+}
+.scanner .ss-fault{
+    background-color: #EB5B25 !important;
+    background-image:url('../images/ex_w.png');
+    background-repeat:no-repeat;
+    background-position:center;
+}
+.scanner .ss-unconf{
+    background-color: #EAEAEA !important;
+}
+.scanner .ss-unscan{
+    background-color: #333 !important;
+    background-image:url('../images/no_w.png');
+    background-repeat:no-repeat;
+    background-position:center;
+}
+.scanner .ss-scan:hover, .scanner .ss-fault:hover, .scanner .ss-unscan:hover{
+    cursor: pointer;
+    border-color: #333;
+}
+.scanner .ss-key{
+    border: 2px #A0A0A0 solid !important;
+    width: 30px;
+    height: 30px;
+    float: left;
+    cursor: default !important;
+}
+.scanner .ss-text{
+    margin-top: 1%;
+}
+
+.okBg{
+    background-color: #4FA600;
+}
+.faultBg{
+    background-color: #EB5B25;
+}
+.warningBg{
+    background-color: #FFD100;
+}
+.unknownBg{
+    background-color: #EAEAEA;
+}
+

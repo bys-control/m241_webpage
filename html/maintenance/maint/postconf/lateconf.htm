@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <link href="../../../media/custom/lib/css/main.css" type="text/css" rel="stylesheet">
+        <script language="javascript" src="../../../media/custom/lib/js/tools.js" type="text/javascript">
+        </script>
+        <script>
+            loadLanguagePack();
+        </script>
+    </head>
+    <body>
+        <form name="lateconf" action="">
+            <table class="table" width=100% height=95%>
+                <tr height=50>
+                    <td align="right" width=50%>
+                        <button class="PlcButton" type="button" onclick="loadLateConf();">Load</button>
+                    </td>
+                    <td align="left" width=50%>
+                        <button class="PlcButton" type="button" onclick="saveLateConf();">Save</button>
+                        <label id="message"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan=2>
+                        <textarea name="text" style="width:100%;height:100%;border: 1px solid #808080;">
+                        </textarea>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <script language="javascript" type="text/javascript">
+            function loadLateConf(){
+                var xhrLateConf = createXMLHttpRequest();
+                xhrLateConf.open("GET", "/plcExchange/load/", false);
+                xhrLateConf.setRequestHeader("FilePath", "/usr/cfg/Machine.cfg");
+                xhrLateConf.send(null);
+                if (xhrLateConf.readyState == 4 && xhrLateConf.status == 200) {
+                    document.forms.lateconf.text.value = xhrLateConf.responseText;
+                    document.getElementById("message").innerHTML = "Post Conf loaded"
+                }
+                else if (xhrLateConf.readyState == 4 && xhrLateConf.status == 401) {
+                    window.alert(lang.alertMessage401);  // ERROR: You need rights to perform this operation
+                }
+                else if (xhrLateConf.readyState == 4 && xhrLateConf.status == 410) {
+                    window.alert(lang.alertMessage410); // ERROR: Session has expired
+                    window.top.location.replace('/login.htm');   // In the server will be replaced by "sys/Web/login.htm" 
+                }
+                else {
+                    document.getElementById("message").innerHTML = "No Post Conf available"
+                }
+            };
+            function saveLateConf(){
+                var xhrLateConf = createXMLHttpRequest();
+                xhrLateConf.open("POST", "/plcExchange/save/", false);
+                xhrLateConf.setRequestHeader("FilePath", "/usr/cfg/Machine.cfg");
+                if (document.forms.lateconf.text.value == "")
+                    document.forms.lateconf.text.value= "\0";
+                xhrLateConf.send(document.forms.lateconf.text.value);
+                if (xhrLateConf.readyState == 4 && xhrLateConf.status == 200) {
+                    document.getElementById("message").innerHTML = "Post Conf saved"
+                }
+                else if (xhrLateConf.readyState == 4 && xhrLateConf.status == 401) {
+                    window.alert(lang.alertMessage401);  // ERROR: You need rights to perform this operation
+                }
+                else if (xhrLateConf.readyState == 4 && xhrLateConf.status == 410) {
+                    window.alert(lang.alertMessage410); // ERROR: Session has expired
+                    window.top.location.replace('/login.htm');   // In the server will be replaced by "sys/Web/login.htm" 
+                }
+                else {
+                    document.getElementById("message").innerHTML = "Error while saving Post Conf"
+                }
+            };
+            loadLateConf();
+        </script>
+    </body>
+</html>

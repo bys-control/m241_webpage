@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <link href="../../../media/custom/lib/css/main.css" type="text/css" rel="stylesheet">
+        <link href="../../../media/custom/lib/css/jquery.alerts.css" type="text/css" rel="stylesheet">
+        <script language="javascript" src="../../../media/custom/lib/js/tools.js" type="text/javascript"></script>
+        <script language="javascript" src="../../../media/custom/lib/js/variable.js" type="text/javascript"></script>  
+        <script language="javascript" src="../../../media/custom/lib/js/jquery-1.2.6.js" type="text/javascript"></script>
+        <script language="javascript" src="../../../media/custom/lib/js/jquery.alerts.js" type="text/javascript"></script>
+         <script type="text/javascript" src="/plcExchange/availableSystems.js"></script>
+        <script type="text/javascript" src="/plcExchange/availableFormats.js"></script>
+        <script type="text/javascript" src="/plcExchange/availableTypes.js"></script>
+        <script>loadLanguagePack();</script>
+    </head>
+    <body>
+        <table class='layout'>
+        <tr>
+                <td align="right">
+                    <button type="button" id="cmdPlc" onClick="RunStopPLC()">Start Controller</button>
+                </td>
+         </tr>
+            <tr><td width='50%' align='center' valign='top'>
+                <label id='IDEN'/>
+            </td>
+            <td width='50%' align='center' valign='top'>
+                <label id='STAT'/>
+            </td></tr>
+          
+        </table>
+
+        <script language="javascript" type="text/javascript">
+            var staticItems = [ new Array(), new Array(), new Array() ];
+            var dynamicItems = [ new Array(), new Array(), new Array() ];
+            var values = new Array();
+            var timer;
+            var pendingCommand = false;
+            var commandplc = "start";
+
+                    
+            var idenItems = [ 
+                'PLC_R.ProductRef',
+                'PLC_R.SerialNumber',
+                'PLC_R.NodeName',
+                'ETH_R.MACAddress',
+                'ETH_R.IPAddress',
+                'ETH_R.SubNetMask',
+                'ETH_R.Gateway'
+            ];
+            
+            var statItems = [ 
+                'PLC_R.Status',
+                'PLC_R.BootProjectStatus',
+                'PLC_R.LastStopCause',
+                'PLC_R.LastApplicationError',
+                'PLC_R.LastStopTime',
+                'PLC_R.LastPowerOffDate'
+            ];
+            
+            var verItems = [ 
+                'PLC_R.FirmVersion',
+                'PLC_R.BootVersion',
+                'PLC_R.HardVersion',
+                'PLC_R.ChipVersion'
+            ];
+            
+            var productID = parseInt( getValues(buildRequest([ "PLC_R.ProductID" ], availableSystems, ['h'])), 16 );
+            insertTable('IDEN', lang.identification, idenItems, staticItems, dynamicItems);
+            insertTable('STAT', lang.status, statItems, staticItems, dynamicItems);
+            
+            values = getValues(buildRequest(staticItems[0], availableSystems, staticItems[1])).split(';');
+            updatePage(staticItems[0], values, staticItems[2]);
+            refreshValues();
+            timer = setInterval(refreshValues, 2000);
+            
+            function refreshValues(){
+                values = getValues(buildRequest(dynamicItems[0],availableSystems,dynamicItems[1])).split(';');
+                if (values[13]=="2"){
+                   document.getElementById("cmdPlc").innerHTML="Stop Controller";
+                   commandplc="stop";
+                }
+                else{
+                   document.getElementById("cmdPlc").innerHTML="Start Controller";
+                   commandplc="start";
+                }
+                updatePage( dynamicItems[0], values, dynamicItems[2] );
+            }
+            
+            function zeroPad(num, count) {
+                var numZeropad = num + '';
+                while (numZeropad.length < count) {
+                    numZeropad = "0" + numZeropad;
+                }
+                return numZeropad;
+            }
+            
+            function RunStopPLC(){
+               var ETHIPAdr = new Array();
+               var MACAdr = new Array();
+               var productRef = getValues(buildRequest(["PLC_R.ProductRef"], availableSystems)).split(';');
+               var PLCName = getValues(buildRequest(["PLC_R.NodeName"], availableSystems)).split(';');
+               var productID = parseInt( getValues(buildRequest([ "PLC_R.ProductID" ], availableSystems, ['h'])), 16 );
+                    ETHIPAdr[0] = getValues(buildRequest(["ETH_R.IPAddress[0]"], availableSystems)).split(';');
+                    ETHIPAdr[1] = getValues(buildRequest(["ETH_R.IPAddress[1]"], availableSystems)).split(';');
+                    ETHIPAdr[2] = getValues(buildRequest(["ETH_R.IPAddress[2]"], availableSystems)).split(';');
+                    ETHIPAdr[3] = getValues(buildRequest(["ETH_R.IPAddress[3]"], availableSystems)).split(';');
+                    MACAdr[0] = getValues(buildRequest(["ETH_R.MACAddress[0]"], availableSystems)).split(';');
+                    MACAdr[1] = getValues(buildRequest(["ETH_R.MACAddress[1]"], availableSystems)).split(';');
+                    MACAdr[2] = getValues(buildRequest(["ETH_R.MACAddress[2]"], availableSystems)).split(';');
+                    MACAdr[3] = getValues(buildRequest(["ETH_R.MACAddress[3]"], availableSystems)).split(';');
+                    MACAdr[4] = getValues(buildRequest(["ETH_R.MACAddress[4]"], availableSystems)).split(';');
+                    MACAdr[5] = getValues(buildRequest(["ETH_R.MACAddress[5]"], availableSystems)).split(';');
+               var ipAdr = unescape(ETHIPAdr[0]) + unescape(ETHIPAdr[1]) + unescape(ETHIPAdr[2]) + unescape(ETHIPAdr[3]);
+               var macadr = zeroPad(parseInt(MACAdr[0]).toString(16).toUpperCase(), 2) + "-" + zeroPad(parseInt(MACAdr[1]).toString(16).toUpperCase(), 2) + "-" + zeroPad(parseInt(MACAdr[2]).toString(16).toUpperCase(), 2) + "-" + zeroPad(parseInt(MACAdr[3]).toString(16).toUpperCase(), 2) + "-" + zeroPad(parseInt(MACAdr[4]).toString(16).toUpperCase(), 2) + "-" + zeroPad(parseInt(MACAdr[5]).toString(16).toUpperCase(), 2);
+               var SerialNumber = getValues(buildRequest(["PLC_R.SerialNumber"], availableSystems)).split(';');
+               if (pendingCommand == false) {
+               try {
+                    jConfirm("<strong>You must be certain that this command will not provoke\nunintended machine operation or otherwise present\na hazard to personnel or equipment.</strong>\n\n\nController Identification:\n\n  - " + unescape(productRef[0]) + "\n  - Node name: " + unescape(PLCName) + "\n  - IP address:           " + ipAdr.replace(/,/g, ".") + "\n  - MAC address: " + macadr.replace(/,/g, "") + "\n  - Serial number: " + SerialNumber + "\n\n<strong>Do you really want to" + " " + commandplc + "?\n\n</strong>", 'M241/51', function (r) {
+                        if (r == true) {
+                            pendingCommand = true;
+                            var xhrCmd = createXMLHttpRequest();
+                            xhrCmd.onreadystatechange = function () {
+                                if (xhrCmd.readyState == 4) {
+                                    pendingCommand = false;
+                                    
+									if (xhrCmd.status == 200) { /* Nothing to do */ }
+                                    else if (xhrCmd.status == 401) {
+                                        window.alert(lang.alertMessage401);  // ERROR: You need rights 
+                                    }
+                                    else if (xhrCmd.status == 410) {
+                                        window.alert(lang.alertMessage410); // ERROR: Session has expired
+                                        window.top.location.replace('/login.htm');   // In the server will be replaced by "sys/Web/login.htm" 
+                                    }
+                                    else { alert("Operation not Allowed"); }
+                                }
+                            };
+                            xhrCmd.open("GET", "/plcExchange/command/" + commandplc, true);
+                            xhrCmd.send(null);
+                        };
+                    });
+            } catch (e) {
+                if (retryCommand == false) {
+                 retryCommand = true;
+                    setTimeout(RunStopPLC(), 500);
+                }
+            };
+         retryCommand = false;
+    }
+}         
+       </script>
+    </body>
+</html>

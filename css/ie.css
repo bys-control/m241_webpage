@@ -1,0 +1,32 @@
+/** Special file for IE - throws borders around everything with a drop shadow and no border
+ ** because drop shadows in IE8 are performance killers
+ **/
+
+/*Hover over tabs in the bottom menu*/
+#bottom-menu div.section:hover{
+	height: 20px;
+	background: white;
+	color: #009B3E;
+	cursor: pointer;
+	border: 0 !important;
+}
+
+/*Rounded box holding all content*/
+#container{
+	position: relative;
+	width: 100%; 
+	min-width: 1000px;
+	height: 768px;
+	margin: 0 auto; 
+	border-spacing:0; 
+	background-color:#FFFFFF; 
+	margin-top: 0px;
+	border: 0px;
+	z-index: 0;
+}
+
+/*Language selection box*/
+#lang-box:hover{
+	display: block;
+	border: 1px solid #A0A0A0 !important;
+}

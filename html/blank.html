@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
+		<link rel="stylesheet" type="text/css" href="css/invariant.css" />
+		<link rel="stylesheet" type="text/css" href="css/side_menu.css" />
+		<!--[if lte IE 8]>
+			<link rel="stylesheet" type="text/css" href="css/ie.css" />
+		<![endif]-->
+		
+	</head>
+	 <script language="javascript" type="text/javascript">
+	 $(document).ready(function(){
+	 $.ajax({
+		    type: "POST",
+		    url: "/plcExchange/getValues/",
+		    data: "S;32;0;104;s;s",
+		    success: 
+		    function(retour)
+		    {
+		    var productref = retour.substr(0,retour.length-1);
+		    if ((productref == "TM251MESE")||(productref == "TM251MESC")){
+		       document.getElementById('plcimage').src="html/media/custom/lib/images/"+productref+".jpg";
+		     }
+		     else{
+		      document.getElementById('plcimage').src="html/media/custom/lib/images/TM241.jpg";
+		     }
+		    }
+		});
+	});
+    </script>
+	<body>
+		<img id="plcimage" width="500" height="500" />
+	</body>
+</html>

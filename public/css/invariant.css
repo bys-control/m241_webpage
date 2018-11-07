@@ -1,0 +1,349 @@
+/*Global settings*/
+body{
+	font-family: sans-serif;
+	padding-top:0;
+	margin: 0;
+}
+.page-title {
+    margin-left: 20px !important;
+}
+.notification-box-success {
+    background-color: #4BB850;
+    padding: 5px 10px 5px 10px;
+    height: 25px;
+    border-radius: 5px 5px 5px 5px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+    margin-left: 10px
+}
+.notification-box-error{
+    background-color: red;
+    padding: 5px 10px 5px 10px;
+    height: 25px;
+    border-radius: 5px 5px 5px 5px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+    margin-left: 10px;
+}
+/*Input text fields*/
+input{
+	box-shadow: inset 1px 1px 4px #DDD;  -webkit-box-shadow:inset 1px 1px 4px #DDD;
+	border-radius: 5px 5px 5px 5px; -moz-border-radius: 5px 5px 5px 5px; 
+	border: 1px solid #DDD;
+	color:#888;
+}
+/*Rounded box holding all content*/
+#container{
+	position: relative; 
+	min-width: 1000px;
+	min-height: 450px;
+	height: 955px;
+	margin: 0 auto; 
+	border-spacing:0; 
+	background-color:#FFFFFF; 
+	margin-top: 0px;    
+	z-index: 0;
+}
+#header{
+	position: relative;
+	z-index: 10;
+	background: #FFF;
+	height: 65px;
+	max-height: 65px;
+}
+/*Alarm box that drops down from the top of the page*/
+#alarmbox{
+	display:none;
+	position: absolute;
+	width: 275px;
+	height: auto;
+	left: 35%;
+	background: #EB5B25;
+	text-align:center;
+	font-size: 0.9em;
+	font-weight:bold;
+	color: #FFF;
+	border: 2px solid #333;
+	border-top: 0;
+	border-radius: 0 0 5px 5px; -moz-border-radius: 0 0 5px 5px;
+	opacity:0.7;
+	filter:alpha(opacity=70); /* For IE8 and earlier */
+	cursor: default;
+}
+/*Hover over alarm box*/
+#alarmbox:hover{
+	opacity:1;
+	filter:alpha(opacity=100); /* For IE8 and earlier */
+}
+/*Acknowledgement button of alarm panel*/
+.ack{
+	cursor: pointer;
+	float:right;
+}
+/*Schneider Logo*/
+#logo{
+	float: left;
+	padding-right: 10px;
+	margin-top: 5px;
+}
+/*FactoryCast M580*/
+#title{
+	color: #555;
+	float: left;
+	padding-left: 20px;
+	border-left: 1px solid #A0A0A0;
+	margin-top: 10px;
+	vertical-align:middle;
+	font-size: 1.7em;
+	font-weight:bold;
+}
+/*User, Language, Documentation, Home, Help*/
+#top-menu{
+	font-size: .9em;
+	color: #333;
+	text-align: right;
+	float: right;
+}
+/*Handles each top menu item*/
+#top-menu span{
+	padding: 0 15px 0 15px;
+}
+/*Handles each half of the top menu*/
+#top-menu p{
+	margin: 2px 0 10px 0;
+}
+/*Handles top menu links*/
+#top-menu a{
+	color: #000;
+	text-decoration:none;
+}
+/*Top menu links on hover*/
+#top-menu a:hover{
+	text-decoration: underline;
+}
+.username{
+	font-weight:bold; 
+	padding: 0 !important;
+}
+#lang-box{
+	display:none;
+	position: absolute;
+	right: 0;
+	top: -10px;
+	color: #000;
+	text-align:left;
+	background: #FFF;
+	width: 110px;
+	border-radius: 5px 5px 5px 5px; -moz-border-radius: 5px 5px 5px 5px;
+	box-shadow: 2px 2px 3px #333; -webkit-box-shadow: 2px 2px 3px #333; -moz-box-shadow: 2px 2px 3px #333;
+	padding: 0 2px 0 2px;
+}
+#lang-box:hover{
+	display: block;
+}
+#lang-box ul{
+	list-style:none;
+	padding-left: 0;
+	cursor: pointer;
+}
+#lang-box li{
+	background: #FFF;
+	padding: 0 5px 4px 5px;
+	margin: 2px 0 2px 0;
+	border-radius: 5px 5px 5px 5px; -moz-border-radius: 5px 5px 5px 5px;
+}
+#lang-box li:hover{
+	background: #EAEAEA;
+	font-weight: bold;
+	box-shadow: inset 1px 1px 2px #333; -webkit-box-shadow: inset 1px 1px 2px #333; -moz-box-shadow: inset 1px 1px 2px #333;
+}
+#lang-box li img.flag{
+	width: 30px;
+	height: 20px;
+	margin-top: 3px;
+	vertical-align: middle;
+}
+/*Horizontal navigation menu*/
+#bottom-menu{
+	position: relative;
+	z-index: 8;
+	width: 100%;
+	height: 30px;
+	clear: both;
+}
+/*Links in menu*/
+#bottom-menu a{
+	color: #000;
+	text-decoration:none;
+}
+/*Green background with inset drop shadow- used in multiple places*/
+.green-with-inset{
+	background: #009B3E;
+	color: #FFF;
+	box-shadow: inset 2px 2px 5px #333; -webkit-box-shadow: inset 2px 2px 5px #333; -moz-box-shadow: inset 2px 2px 5px #333;
+}
+/*Tabs in the bottom menu*/
+#bottom-menu div.section{
+	float: left;
+	overflow: hidden;
+	width: 175px;
+	height: 21px;
+	margin-top: 8px;
+	margin-left: 10px;
+	text-align:center;
+	font-weight:bold;
+	color: #FFF;
+	border-radius: 5px 5px 0 0; -moz-border-radius: 5px 5px 0 0;
+	background: #4BB850;
+	box-shadow: 2px 0 3px #333; -webkit-box-shadow: 2px 0 3px #333; -moz-box-shadow: 2px 0 3px #333;
+	z-index:100;
+}
+.home{
+	width: 35px !important;
+	background: #4BB850 url('../../images/home_g.png') no-repeat center !important;
+}
+.home:hover, .home.current-section{
+	background: #FFF url('../../images/home_w.png') no-repeat center !important;
+	cursor: pointer !important;
+	height: 22px !important;
+	box-shadow: none !important; -webkit-box-shadow: none !important; -moz-box-shadow: none !important;
+	border-radius: 5px 5px 0 0 !important; -moz-border-radius: 5px 5px 0 0 !important;
+}
+.current-section{
+	background: #FFF !important;
+	color: #009B3E !important;
+	height: 22px !important;
+	box-shadow: none !important; -webkit-box-shadow: none !important; -moz-box-shadow: none !important;
+}
+/*Hover over tabs in the bottom menu*/
+#bottom-menu div.section:hover{
+	height: auto !important;
+	background: white;
+	color: #009B3E;
+	cursor: default;
+	border-radius: 5px 5px 5px 5px; -moz-border-radius: 5px 5px 5px 5px;
+	box-shadow: 2px 2px 3px #333 !important; -webkit-box-shadow: 2px 2px 3px #333 !important; -moz-box-shadow: 2px 2px 3px #333 !important;
+}
+/*Lists under tabs*/
+#bottom-menu div.section ul{
+	padding: 0 3px 0 3px;
+	margin: 2px 0 2px 0;
+	list-style: none;
+	cursor: pointer;
+}
+/*List items under tabs*/
+#bottom-menu div.section ul li{
+	text-align:left;
+	font-size: 13px;
+	color: #000;
+	font-weight:normal;
+	padding: 0 5px 4px 5px;
+	margin: 2px 0 2px 0;
+	border-radius: 5px 5px 5px 5px; -moz-border-radius: 5px 5px 5px 5px;
+	float:none;
+}
+/*Right arrows in list items*/
+#bottom-menu div.section ul li span{
+	float: right;
+}
+/*List items on hover*/
+#bottom-menu div.section ul li:hover{
+	background: #A0A0A0;
+	color: #FFF;
+	font-weight:bold;
+	box-shadow: inset 1px 1px 2px #333; -webkit-box-shadow: inset 1px 1px 2px #333; -moz-box-shadow: inset 1px 1px 2px #333;
+}
+/*List item hover link color*/
+#bottom-menu div.section ul li:hover a{
+	color: #FFF;
+}
+/*Submenu*/
+#bottom-menu div.section ul ul.submenu{
+	display: none;
+	width: 150px;
+	position: absolute;
+	margin-top: -18px;
+	margin-left: 163px;
+	border: 1px #AAA solid;
+	border-radius: 5px; -moz-border-radius: 5px;
+	box-shadow: 2px 2px 3px #333; -webkit-box-shadow: 2px 2px 3px #333; -webkit-box-shadow: 2px 2px 3px #333;
+}
+/*Submenu list item*/
+#bottom-menu div.section ul li:hover ul.submenu li{
+	margin: 2px 0 2px 0;
+}
+/*Submenu list item link*/
+#bottom-menu div.section ul li:hover ul.submenu li a{
+	color: #000;
+}
+/*Hover over submenu list item*/
+#bottom-menu div.section ul li:hover ul.submenu li:hover{
+	background: #EAEAEA;
+	color: #000;
+}
+/*Makes the hidden submenu appear out of thin ... pixels*/
+#bottom-menu div.section ul li:hover ul.submenu{
+	display: block;
+	background: #FFF;
+}
+/*Holdes side menu and page*/
+#content{
+	position: absolute;
+	z-index: -1;
+	width: 100%;
+	margin-top: 10px;
+	min-height: 250px;
+}
+/*Side navigation menu*/
+#side-menu{
+	position: relative;
+	float: left;
+	height: auto;
+	/* background: #EEE; */
+	width: 225px;/* 15%; */
+	/* min-width: 225px; */
+	border-radius: 0 0 0 5px;
+	overflow: hidden;
+	min-height: 250px;
+}
+/*Current page content area*/
+#page{
+	position: absolute; /*relative*/
+	/* float: left; */
+	left: 210px;
+	border-radius: 5px;
+	border: 2px solid #eaeaea;
+	margin-left: -1px;
+	z-index: 0;
+	background: #FFF; /*new*/
+	min-height: 250px;
+}
+/*Little arrow to show or hide the left menu*/
+#side-menu-toggle-div{
+	position: absolute;
+	z-index: 50;
+	cursor: pointer;
+}
+#side-menu-toggle-div span{
+	cursor: pointer;
+}
+/*Footer below the content box*/
+#footer{
+	font-size: .7em;
+	text-align: center;
+	padding-top: 5px;
+}
+/*Throw stuff off the screen*/
+.hideMe{
+	margin-left: -9999px;
+}
+.ui-dialog-titlebar { padding: .2em .4em !important; }
+.ui-widget-header{background: #FFF; color:#4fa600; font-weight:bold; border: 0; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #EAEAEA;}
+.ui-dialog-buttonpane{border:0;}
+.ui-dialog-title, .ui-dialog-content{font-size: 14px;}
+.dialog-button{background: #FFF; border:0; margin-left: 20px !important; cursor:pointer; float:right; text-align:center; font-size: 10px; color: #FFF;}
+.ui-tooltip{font-size:12px; padding: 2px 4px;}

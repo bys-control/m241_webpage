@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <link href="../../../media/custom/lib/css/main.css" type="text/css" rel="stylesheet">
+        <script language="javascript" src="../../../media/custom/lib/js/tools.js" type="text/javascript">
+        </script>
+        <script>
+            loadLanguagePack();
+        </script>
+    </head>
+    <body>
+        <form name="fireconf" action="">
+            <table class="table" width=100% height=95%>
+                <tr height=50>
+                    <td align="right" width=50%>
+                        <button class="PlcButton" type="button" onclick="loadfirewallConf();">Load</button>
+                    </td>
+                    <td align="left" width=50%>
+                        <button class="PlcButton" type="button" onclick="savefirewallConf();">Save</button>
+                        <label id="message"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan=2>
+                        <textarea name="text" style="width:100%;height:100%;border: 1px solid #808080;">
+                        </textarea>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <script language="javascript" type="text/javascript">
+            function loadfirewallConf(){
+                var xhrFireConf = createXMLHttpRequest();
+                xhrFireConf.open("GET", "/plcExchange/load/", false);
+                xhrFireConf.setRequestHeader("FilePath", "/usr/cfg/FirewallDefault.cmd");
+                xhrFireConf.send(null);
+                if (xhrFireConf.readyState == 4 && xhrFireConf.status == 200) {
+                    document.forms.fireconf.text.value = xhrFireConf.responseText;
+                    document.getElementById("message").innerHTML = "Firewall Conf loaded"
+                }
+				else if (xhrFireConf.readyState == 4 && xhrFireConf.status == 401) {
+                    window.alert(lang.alertMessage401);  // ERROR: You need rights 
+                }
+                else if (xhrFireConf.readyState == 4 && xhrFireConf.status == 410) {
+                    window.alert(lang.alertMessage410); // ERROR: Session has expired
+                    window.top.location.replace('/login.htm');   // In the server will be replaced by "sys/Web/login.htm" 
+                }
+                else {
+                    document.getElementById("message").innerHTML = "No Firewall Conf available"
+                }
+            };
+            function savefirewallConf(){
+                var xhrFireConf = createXMLHttpRequest();
+                xhrFireConf.open("POST", "/plcExchange/save/", false);
+                xhrFireConf.setRequestHeader("FilePath", "/usr/cfg/FirewallDefault.cmd");
+                if (document.forms.fireconf.text.value == "")
+                    document.forms.fireconf.text.value= "\0";
+                xhrFireConf.send(document.forms.fireconf.text.value);
+                if (xhrFireConf.readyState == 4 && xhrFireConf.status == 200) {
+                    document.getElementById("message").innerHTML = "Firewall Conf saved"
+                }
+                else if (xhrFireConf.readyState == 4 && xhrFireConf.status == 401) {
+                    window.alert(lang.alertMessage401);  // ERROR: You need rights 
+                }
+                else if (xhrFireConf.readyState == 4 && xhrFireConf.status == 410) {
+                    window.alert(lang.alertMessage410); // ERROR: Session has expired
+                    window.top.location.replace('/login.htm');   // In the server will be replaced by "sys/Web/login.htm" 
+                }
+                else {
+                    document.getElementById("message").innerHTML = "Error while saving Firewall Conf"
+                }
+            };
+            loadfirewallConf();
+        </script>
+    </body>
+</html>

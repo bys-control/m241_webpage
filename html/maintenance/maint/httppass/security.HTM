@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>    <head>        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">        <script language="javascript" src="../../../media/custom/lib/js/tools.js" type="text/javascript">        </script>    <script language="javascript" src="../../../media/custom/lib/js/variable.js" type="text/javascript"></script>    <script type="text/javascript" src="/plcExchange/availableSystems.js"></script>    <script type="text/javascript" src="/plcExchange/availableFormats.js"></script>    <script type="text/javascript" src="/plcExchange/availableTypes.js"></script>    </head>    <body >
+        <p />
+        <p align="center">
+            HTTP access rights</p>
+        <table width="300" align="center" bgcolor="gray">
+            <tr>
+                <td align="right">
+                    Password:
+                </td>
+                <td>
+                    <input type="password" size=11 maxlength=10 id="Password" />
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    New password:
+                </td>
+                <td>
+                    <input type="password" size=11 maxlength=10 id="NewPassword" />
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    Confirm new password:
+                </td>
+                <td>
+                    <input type="password" size=11 maxlength=10 id="ConfirmNewPassword" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan=2 align="center">
+                    <input type="button" value="Change password" onClick="WritePasswordRequest();">
+                </td>
+            </tr>
+        </table>
+        <script>
+
+            function WritePasswordRequest(){
+
+                var pass = document.getElementById("Password").value;
+                var newpass = document.getElementById("NewPassword").value;
+                var confirmnewpass = document.getElementById("ConfirmNewPassword").value;
+                if (newpass == confirmnewpass){
+                    var xhrLogin = createXMLHttpRequest();
+                    xhrLogin.onreadystatechange = function(){
+                        if (xhrLogin.readyState == 4) {
+                        var resp = xhrLogin.responseText;
+                        if ( xhrLogin.status == 200 && resp.indexOf(':') != -1 ) {
+                            document.cookie = "M258_LOG=" + xhrLogin.responseText + ";path=/";
+                            window.top.location.replace('/index.htm');
+                        }
+                        else {
+                           alert("Bad login/password :" + xhrLogin.responseText);
+                           var date = new Date;
+                           date.setFullYear(date.getFullYear() - 1);
+                           document.cookie = "M258_LOG=" + escape(null) + ";path=/;expires=" + date.toGMTString();
+                           displayUser();
+                        }
+                    }
+                };
+                xhrLogin.open("POST", "/authentication/security/", true);
+                xhrLogin.setRequestHeader("Authorization", encode64("USER:" + pass));
+                xhrLogin.send(encode64("USER:" + newpass));
+            }
+            else{
+                   alert("Error: Passwords are not the same ");
+            }
+         }
+            
+            
+
+        </script>
+
+    </body>
+
+</html>
+

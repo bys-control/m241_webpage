@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <link href="../../../media/custom/lib/css/main.css" type="text/css" rel="stylesheet">
+        <script language="javascript" src="../../../media/custom/lib/js/tools.js" type="text/javascript"></script>
+        <script language="javascript" src="../../../media/custom/lib/js/variable.js" type="text/javascript"></script>
+        <script type="text/javascript" src="/plcExchange/availableSystems.js"></script>
+        <script type="text/javascript" src="/plcExchange/availableFormats.js"></script>
+        <script type="text/javascript" src="/plcExchange/availableTypes.js"></script>
+        <script>loadLanguagePack();</script>
+    </head>
+    <body>
+        <div class="title"> </div>
+        
+        <table class='layout'>
+         <tr>
+            <td align="right">
+                <input type="button" value="Reset Statistics" align="left" onClick="ResetSerialStat();" />  
+            </td>
+         </tr>
+        
+            <tr><td width='50%' align='center' valign='top'>
+                <label id='SER_0'/>
+            </td>
+            <td width='50%' align='center' valign='top'>
+                <label id='SER_1'/>
+            </td></tr>
+        </table>
+
+        <script language="javascript" type="text/javascript">
+            var staticItems = [ new Array(), new Array(), new Array() ];
+            var dynamicItems = [ new Array(), new Array(), new Array() ];
+            var values = new Array();
+            var timer;
+            var serial_1 = true;
+            
+            var productID = parseInt( getValues(buildRequest([ "PLC_R.ProductID" ], availableSystems, ['h'])), 16 );
+            if ((productID == 0x750)||(productID == 0x751))
+                serial_1 = false;
+             
+            var ser0Items = [ 
+                'SER_R[0].FramesTransmittedOK',
+                'SER_R[0].FramesReceivedOK',
+                'SER_R[0].RX_MessagesError',
+                'SER_R[0].SlaveExceptionCount',
+                'SER_R[0].SlaveMsgCount',
+                'SER_R[0].SlaveNoRespCount',
+                'SER_R[0].SlaveNakCount',
+                'SER_R[0].SlaveBusyCount',
+                'SER_R[0].CharOverrunCount'
+            ];
+
+            insertTable( 'SER_0', lang.serial + " 0", ser0Items, staticItems, dynamicItems );
+
+            if ( serial_1 == true ) 
+            {
+                var ser1Items = [ 
+                    'SER_R[1].FramesTransmittedOK',
+                    'SER_R[1].FramesReceivedOK',
+                    'SER_R[1].RX_MessagesError',
+                    'SER_R[1].SlaveExceptionCount',
+                    'SER_R[1].SlaveMsgCount',
+                    'SER_R[1].SlaveNoRespCount',
+                    'SER_R[1].SlaveNakCount',
+                    'SER_R[1].SlaveBusyCount',
+                    'SER_R[1].CharOverrunCount'
+                ];
+
+                insertTable( 'SER_1', lang.serial + " 1", ser1Items, staticItems, dynamicItems );
+            }
+            
+            //GG values = getValues(buildRequest(staticItems[0], availableSystems, staticItems[1])).split(';');
+            //GG updatePage(staticItems[0], values, staticItems[2]);
+            refreshValues();
+            timer = setInterval( refreshValues, 2000 );
+
+            function refreshValues(){
+                values = getValues(buildRequest(dynamicItems[0],availableSystems,dynamicItems[1])).split(';');
+                updatePage( dynamicItems[0], values, dynamicItems[2] );
+            }
+            // Add reset serial sataistics
+            function ResetSerialStat(){
+                // Send http request 
+                var xhrCmdRst= createXMLHttpRequest();
+                xhrCmdRst.open("GET", "/plcExchange/command/ResetSerStat", true);
+                xhrCmdRst.send(null);
+            }
+            
+        </script>
+    </body>
+</html>

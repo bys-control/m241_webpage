@@ -1,0 +1,239 @@
+<!-- 2010/01/14 : EAM added new dields IpStatus, MasterIpLost & MasterIpTimeouts. Reviewed by PDU  -->
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="no-cache; text/html; charset=ISO-8859-1">
+        <link href="../../../media/custom/lib/css/main.css" type="text/css" rel="stylesheet">
+        <script language="javascript" src="../../../media/custom/lib/js/tools.js" type="text/javascript"></script>
+        <script language="javascript" src="../../../media/custom/lib/js/variable.js" type="text/javascript"></script>
+        <script type="text/javascript" src="/plcExchange/availableSystems.js"></script>
+        <script type="text/javascript" src="/plcExchange/availableFormats.js"></script>
+        <script type="text/javascript" src="/plcExchange/availableTypes.js"></script>
+        <script>loadLanguagePack();</script>
+        <style type="text/css">
+            .row
+            {
+                height: 13px;
+                padding: 10px 20px 20px;
+            }
+            .style1
+            {
+                width: 51%;
+            }
+            #IpAddress
+            {
+                width: 119px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class=""row">
+        <fieldset class="span6">
+        <legend> Remote Ping Service</legend>
+        <div class="row">
+           <span class="subFieldTitle span6" style="font-family: Arial, Helvetica, sans-serif; font-size: 14px">Enter IP address to ping from Controller:</span>
+        </div>
+        <div class="row">
+          <table class='layout'>
+           <tr>
+             <td width='50%'align='left' valign='top'>
+                <input type="text" id="IpAddress" onfocus="onIpaddress();">
+                <input type="button" value="Ping" onclick="RemotePing();" onmouseover="pingover();" align="top">
+              </td>
+              <td width='50%' align='left' valign='top'>
+                 <span>
+                  <img id="pingResult" src="../../../../images/NO_W.png">
+                 </span>
+                 <label id="pingResultStr" 
+                      style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bolder;"></label> 
+              </td>
+            </tr>
+           </table>
+        </div>
+         
+        </fieldset>
+        </div>
+        <div class=""row">
+        <fieldset class="span6">
+        <legend> Statistics </legend>
+        <table class='layout'>
+        <tr>
+                <td align="right">
+                    <input type="button" value="Reset Statistics" onClick="ResetEthStat();" />  
+                </td>
+         </tr>
+            <tr>
+                <td width='50%' align='center' valign='top'>
+                    <label id='IP0'/>
+                </td>
+                <td width='50%' align='center' valign='top'>
+                    <label id='IP1'/>
+                </td>
+                </tr>
+            <tr>
+                <td width='50%' align='center' valign='top'>
+                    <label id='STAT'/>
+                </td>
+                <td width='50%' align='center' valign='top'>
+                    <label id='MBS'/>
+                </td>
+            </tr>
+                <tr><td width='50%' align='center' valign='top'>
+                    <label id='ETHIP'/>
+                </td>
+            </tr>
+        </table>
+         </fieldset>
+         </div>
+        <script language="javascript" type="text/javascript">
+            var staticItems = [ new Array(), new Array(), new Array() ];
+            var dynamicItems = [ new Array(), new Array(), new Array() ];
+            var values = new Array();
+            var timer;
+            
+            var ipItems0 = [ 
+                'ETH_R.MACAddress',
+                'ETH_R.IPAddress',
+                'ETH_R.SubNetMask',
+                'ETH_R.Gateway',
+                'ETH_R.PortALinkStatus'
+            ];
+            
+            var ipItems1 = [
+                'ETH_R.MACAddress_If2',
+                'ETH_R.IPAddress_If2',
+                'ETH_R.SubNetMask_If2',
+                'ETH_R.Gateway_If2',
+                'ETH_R.PortALinkStatus_If2'
+            ];
+            
+              var ipItems2 = [ 
+                'ETH_R.MACAddress',
+                'ETH_R.IPAddress',
+                'ETH_R.SubNetMask',
+                'ETH_R.Gateway',
+                'ETH_R.PortALinkStatus',
+                'ETH_R.PortASpeed',
+                'ETH_R.PortADuplexStatus',
+                'ETH_R.FrameSendingProtocol',
+                'ETH_R.PortACollisions'
+            ];
+            var statItems = [ 
+                'ETH_R.OpenTcpConnections',
+                'ETH_R.FramesTransmittedOK',
+                'ETH_R.FramedReceivedOK',
+                'ETH_R.TransmitBufferErrors',
+                'ETH_R.ReceiveBufferErrors'
+            ];
+            
+            var fdrItems = [ 
+                'ETH_R.IpMode',
+                'ETH_R.DeviceName',
+                'ETH_R.FDRServerIPAddress',
+                'ETH_R.PortAIpStatus'
+            ];
+               
+            var mbsItems = [ 
+                'ETH_R.ModbusMessageTransmitted',
+                'ETH_R.ModbusMessageReceived',
+                'ETH_R.ModbusErrorMessage',
+                'ETH_R.MasterIpLost',
+                'ETH_R.MasterIpTimeouts'				
+            ];
+            
+            var ethipItems = [
+                'ETH_R.i_udiETHIP_IOMessagingTransmitted',
+                'ETH_R.i_udiETHIP_IOMessagingRceived',
+                'ETH_R.i_udiUCMM_Request',
+                'ETH_R.i_udiUCMM_Error',
+                'ETH_R.i_udiClass3_Request',
+                'ETH_R.i_udiClass3_Error',
+                'ETH_R.i_uiAssemblyInstanceInput',
+                'ETH_R.i_uiAssemblyInstanceInputSize',
+                'ETH_R.i_uiAssemblyInstanceOutput',
+                'ETH_R.i_uiAssemblyInstanceOutputSize',
+                'ETH_R.i_uiETHIP_ConnectionTimeouts'
+            ]
+            var productID = parseInt( getValues(buildRequest([ "PLC_R.ProductID" ], availableSystems, ['h'])), 16 );
+            if (productID == 0x751)
+            {// TM251MESC
+                insertTable( 'IP0', lang.ethPort0, ipItems0, staticItems, dynamicItems );
+            }
+            else if (productID == 0x750)
+            {// TM251MESE
+                insertTable( 'IP0', lang.ethPort0, ipItems0, staticItems, dynamicItems );
+                insertTable( 'IP1', lang.ethPort1, ipItems1, staticItems, dynamicItems );
+            }
+            else if ((productID == 0x0719) ||  (productID == 0x0713) || (productID == 0x0718) || (productID == 0x0712))
+            {// TM241C24R, TM241C24T_U, TM241C40R, TM241C40T_U
+                insertTable( 'IP0', lang.ethModule, ipItems0, staticItems, dynamicItems );
+            }
+            else
+            {// TM241CE24R, TM241CEC24T_U, TM241CE40R, TM241CE40T_U
+                insertTable( 'IP0', lang.ethPort0, ipItems0, staticItems, dynamicItems );
+				insertTable( 'IP1', lang.ethModule, ipItems1, staticItems, dynamicItems );
+            }
+            insertTable( 'STAT', lang.ethStat, statItems, staticItems, dynamicItems );
+            //insertTable( 'FDR', lang.fdr, fdrItems, staticItems, dynamicItems );
+            insertTable( 'MBS', lang.mbsStat, mbsItems, staticItems, dynamicItems );
+            insertTable( 'ETHIP', lang.ethipStat, ethipItems, staticItems, dynamicItems );
+
+            values = getValues(buildRequest(staticItems[0], availableSystems, staticItems[1])).split(';');
+            updatePage(staticItems[0], values, staticItems[2]);
+            refreshValues();
+            timer = setInterval( refreshValues, 2000 );
+
+            function refreshValues(){
+                values = getValues(buildRequest(dynamicItems[0],availableSystems,dynamicItems[1])).split(';');
+                updatePage( dynamicItems[0], values, dynamicItems[2] );
+            }
+            // Add reset counter on ethernet interface
+            function ResetEthStat(){
+                // Send http request 
+                var xhrCmdRst= createXMLHttpRequest();
+                xhrCmdRst.open("GET", "/plcExchange/command/ResetEthStat", true);
+                xhrCmdRst.send(null);
+            } 
+            function onIpaddress(){
+             document.getElementById("pingResult").src="../../../../images/NO_W.png";
+             document.getElementById("pingResultStr").innerHTML = "     ";
+            }
+            function pingover(){
+            }
+            function RemotePing(){
+              document.getElementById("pingResult").src="../../../../images/spinner.gif";
+              document.getElementById("pingResultStr").innerHTML = "     ";
+              var valueOfIp = document.getElementById("IpAddress").value;
+              var xhrRemPing = createXMLHttpRequest();
+                xhrRemPing.open("GET", "/plcExchange/remping", false);
+                xhrRemPing.setRequestHeader("Cache-Control","no-cache");
+                xhrRemPing.setRequestHeader("If-Modified-Since", "Sat, 1 Jan 2005 00:00:00 GMT");
+                xhrRemPing.setRequestHeader("FilePath",valueOfIp.toString());
+                xhrRemPing.send(null);
+                if (xhrRemPing.readyState == 4 && xhrRemPing.status == 200) {
+                    //document.forms.lateconf.text.value = xhrRemPing.responseText;
+                    if  (xhrRemPing.responseText=="OK"){
+                        document.getElementById("pingResult").src="../../../../images/ok.png";
+                        document.getElementById("pingResultStr").innerHTML = "OK";
+                    }
+                    else{
+                      document.getElementById("pingResult").src="../../../../images/X.png";
+                      document.getElementById("pingResultStr").innerHTML = xhrRemPing.responseText;
+                    }
+                }
+                else if (xhrRemPing.readyState == 4 && xhrRemPing.status == 401) {
+                    window.alert(lang.alertMessage401);
+                }
+                else if (xhrRemPing.readyState == 4 && xhrRemPing.status == 410) {
+                    window.alert(lang.alertMessage410);
+                    window.top.location.replace('/login.htm');
+                }
+                else {
+                    document.getElementById("pingResult").src="../../../../images/X.png";
+                    document.getElementById("pingResultStr").innerHTML = "Controller Communication Error";
+                }
+            }  
+        </script>
+    </body>
+</html>

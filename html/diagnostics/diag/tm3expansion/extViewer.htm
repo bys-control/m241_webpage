@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link href="../../../media/custom/lib/css/main.css" type="text/css" rel="stylesheet">
+    <script language="javascript" src="../../../media/custom/lib/js/tools.js" type="text/javascript"></script>
+    <script language="javascript" src="../../../media/custom/lib/js/variable.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/plcExchange/availableSystems.js"></script>
+    <script type="text/javascript" src="/plcExchange/availableFormats.js"></script>
+    <script type="text/javascript" src="/plcExchange/availableTypes.js"></script>
+    <script>loadLanguagePack();</script>
+  </head>
+  <body>
+        <span class="title">Expansion viewer</span>
+        <a class="button" href="javascript:displayInfo('1')">|&lt&lt</a>
+        <a class="button" href="javascript:displayInfo('--')">&lt&lt</a>
+        <a class="button" href="javascript:displayInfo('-')">&lt</a>
+        <label id="position"></label>
+        <a class="button" href="javascript:displayInfo('+')">&gt</a>
+        <a class="button" href="javascript:displayInfo('++')">&gt&gt</a>
+        <a class="button" href="javascript:displayInfo('*')">&gt&gt|</a>
+        <table class='layout'>
+            <tr><td width='50%' align='center' valign='top'>
+                <label id='EXT_0'/>
+            </td>
+            <td width='50%' align='center' valign='top'>
+                <label id='EXT_1'/>
+            </td></tr>
+            <tr><td width='50%' align='center' valign='top'>
+                <label id='EXT_2'/>
+            </td>
+            <td width='50%' align='center' valign='top'>
+                <label id='EXT_3'/>
+            </td></tr>
+            <tr><td width='50%' align='center' valign='top'>
+                <label id='EXT_4'/>
+            </td>
+            <td width='50%' align='center' valign='top'>
+                <label id='EXT_5'/>
+            </td></tr>
+            <tr><td width='50%' align='center' valign='top'>
+                <label id='EXT_6'/>
+            </td></tr>
+        </table>
+
+      <script language="javascript" type="text/javascript">
+            var staticItems;
+            var dynamicItems;
+            var values;
+            var timer;
+            
+            var DISPLAY = 7;
+            var position = 1;
+            var max = 15;
+            
+            function displayInfo( cmd ){
+                clearTimeout(timer);
+                staticItems = [ new Array(), new Array(), new Array() ];
+                dynamicItems = [ new Array(), new Array(), new Array() ];
+                values = new Array();
+                var index;
+
+                if ( cmd == '1' ) position = 1;
+                if ( cmd == '*' ) position = max-DISPLAY;
+                if ( cmd == '+' ) position++;
+                if ( cmd == '++' ) position += DISPLAY;
+                if ( cmd == '-' ) position--;
+                if ( cmd == '--' ) position -= DISPLAY;
+                
+                if ( position < 1 ) position = 1;
+                if ( position+DISPLAY > max ) position = max-DISPLAY;
+                
+                document.getElementById("position").innerHTML = position + " - " + (position+DISPLAY-1) + " / " + (max-1);
+                
+                for ( index = 0 ; index < DISPLAY ; index++ ){
+                    var extItems = [
+                        'XMODULE[' + (position+index-1) + '].ProductRefID',
+                        //'XMODULE[' + (position+index) + '].SerialNumber',
+                        //'XMODULE[' + (position+index) + '].FirmVersion',
+                        //'XMODULE[' + (position+index) + '].BootVersion',
+                        'XMODULE[' + (position+index-1) + '].State'
+                    ];
+                    insertTable( 'EXT_' + index, lang.extension + ' ' + (index+position),
+                                 extItems, staticItems, dynamicItems );
+                }
+                
+                //GG values = getValues(buildRequest(staticItems[0], availableSystems, staticItems[1])).split(';');
+                //GG updatePage(staticItems[0], values, staticItems[2]);
+                refreshValues();
+                timer = setInterval( refreshValues, 2000 );
+            }
+            
+            function refreshValues(){
+                values = getValues(buildRequest(dynamicItems[0],availableSystems,dynamicItems[1])).split(';');
+                updatePage( dynamicItems[0], values, dynamicItems[2] );
+            }
+            
+            displayInfo( '1' );                    
+      </script>
+  </body>
+</html>

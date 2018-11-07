@@ -1,0 +1,80 @@
+/*Login dialog*/
+#login{
+	padding: 0;
+	background-image: url('../../public/images/gradient_bg.png');
+	background-repeat:no-repeat;
+	overflow:hidden;
+}
+/*Green bar under Login title*/
+#login div.green-with-inset{
+	font-weight: bold;
+	font-size: 0.8em;
+	padding: 4px 0 4px 10px;
+}
+/*Image next to login form*/
+#login-image{
+	position: relative;
+	float: left;
+	margin: 10px 5px 10px 5px;
+	padding-left: 20px;
+}
+/*Error field that is initially hidden*/
+#login-error{
+	color: #EB5B25;
+}
+/*Username / password login*/
+#login-form{
+	position: relative;
+	float: right;
+	text-align: right;
+	font-size: 0.8em;
+	margin: 10px 5px 10px 5px;
+	padding-right: 20px;
+	padding-top: 30px;
+}
+/*Schneider Electric logo goes in here*/
+#login-footer{
+	position: relative;
+	text-align: right;
+	clear:both;
+	padding-right: 5px;
+	font-size: 10px;
+	background-color: #FFF;
+}
+#login-footer p{
+	float:left;
+	padding-left: 10px;
+	padding-top: 15px;
+}
+#login-footer img{
+	padding-top: 5px;
+}
+/*Override some dialog stuff for login*/
+.ui-dialog{
+	padding-left: 0;
+	padding-right:0;
+	border: 0;
+	box-shadow: 3px 3px 20px #333; -webkit-box-shadow: 3px 3px 20px #333; -moz-box-shadow:3px 3px 20px #333;
+}
+.ui-dialog-titlebar{
+	border: 0;
+	background: #FFF;
+	padding: 10px 5px 10px 10px !important;
+	color: #333;
+	font-weight:bold;
+}
+.ui-button-text{
+	font-weight:bold;
+	font-size: .8em;
+}
+.dialog-button{
+	background: transparent; 
+	border:0; 
+	margin-left: 20px !important; 
+	cursor:pointer; 
+	float:right; 
+	text-align:center; 
+	font-size: 10px;
+	font-weight:bold;
+	color: #333;
+}

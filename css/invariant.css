@@ -1,0 +1,492 @@
+/*jquery.ui.layout*/
+#page-content{
+	border: 0 !important;
+	padding: 0 !important;
+}
+#header-parent{
+	border: 0 !important; 
+	overflow: hidden !important;
+	padding: 0 !important;
+	padding-bottom: 20px !important;
+}
+#side-menu-parent{
+	border: 0 !important;
+	padding: 0 10px 10px 10px !important;
+}
+.ui-layout-resizer{
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+.ui-layout-resizer-west{
+	background-color: #EAEAEA !important;
+}
+.ui-layout-resizer-west:hover{
+	background-color: #42B4E6 !important;
+	width: 6px !important;
+}
+.ui-layout-toggler{
+	display: none !important;
+}
+
+/*Global settings*/
+body, body a{
+	font-family: sans-serif;
+	padding-top:0;
+	margin: 0;
+	color: #2F1F0C;
+}
+.page-title {
+	border-bottom: 1px solid #EAEAEA;
+	margin-top: 0;
+}
+.titleButton{
+	display: inline-block;
+	margin: 0 10px 2px 10px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.titleButtonGroup{
+	display: inline-block;
+	margin-left: 10px;
+}
+.titleButtonText{
+	display: none;
+	margin-left: 10px;
+	font-size: 11px;
+	font-weight: bold;
+	vertical-align: middle;
+}
+/*Input text fields*/
+input{
+	box-shadow: inset 1px 1px 4px #DDD;  
+	-webkit-box-shadow:inset 1px 1px 4px #DDD;
+	-moz-box-shadow: inset 1px 1px 4px #DDD;
+	border-radius: 5px 5px 5px 5px; 
+	-moz-border-radius: 5px 5px 5px 5px; 
+	border: 1px solid #DDD;
+	color:#241F0C;
+}
+/*Rounded box holding all content*/
+#container{
+	position: relative; 
+	min-width: 1000px;
+	min-height: 450px;
+	height: 890px;
+	margin: 0 auto; 
+	border-spacing:0; 
+	background-color:#FFFFFF; 
+	margin-top: 0px;    
+	z-index: 0;
+}
+#header{
+	position: relative;
+	z-index: 10;
+	background-color: #FFF;
+	height: 65px;
+	max-height: 65px;
+}
+/*Acknowledgement button of alarm panel*/
+.ack{
+	cursor: pointer;
+	float:right;
+}
+/*Schneider Logo*/
+#logo{
+	float: left;
+	margin-top: 5px;
+	padding: 0 10px 5px 5px;
+}
+/*FactoryCast M580*/
+#title{
+	float: left;
+	padding-left: 8px;
+	margin-top: 20px;
+	font-size: 1.5em;
+}
+#statusBar{
+	position: relative;
+	border-color: #B0B0B3;
+	border-style: solid;
+	border-width: 1px;
+	font-size: 11px;
+	margin: 5px 0 5px 40px;
+	width: 35%;
+	height: 80%;
+	z-index: -1;
+}
+.status-section{
+	position: relative;
+	border-right: 1px solid #B0B0B3;
+	display: inline-block;
+	margin-top: 5px;
+	width: 29%;
+	padding: 0 5px;
+}
+.status-value{
+	float:right;
+}
+.status-text{
+	float:left;
+}
+/*User, Language, Documentation, Home, Help*/
+#top-menu{
+	font-size: .8em;
+	float: right;
+	margin-top: 5px;
+}
+/*Handles each top menu item*/
+#top-menu span{
+	padding: 0 15px 0 15px;
+}
+/*Handles each half of the top menu*/
+#top-menu p{
+	margin: 2px 0 10px 0;
+}
+/*Handles top menu links*/
+#top-menu a{
+	text-decoration:none;
+}
+/*Top menu links on hover*/
+#top-menu a:hover{
+	text-decoration: underline;
+}
+.username{
+	font-weight:bold; 
+	padding: 0 !important;
+}
+#lang:hover{
+	text-decoration:underline;
+	cursor:pointer;
+}
+#lang-box{
+	display:none;
+	position: absolute;
+	right: 65px;
+	top: -10px;
+	text-align:left;
+	background-color: #FFF;
+	width: 110px;
+	border-radius: 5px 5px 5px 5px; 
+	-moz-border-radius: 5px 5px 5px 5px;
+	box-shadow: 2px 2px 3px #333; 
+	-webkit-box-shadow: 2px 2px 3px #333; 
+	-moz-box-shadow: 2px 2px 3px #333;
+	padding: 0 2px 0 2px;
+	font-size: .8em;
+}
+#lang-box:hover{
+	display: block;
+}
+#lang-box ul{
+	list-style:none;
+	padding-left: 0;
+	cursor: pointer;
+}
+#lang-box li{
+	background: #FFF;
+	padding: 0 5px 4px 5px;
+	margin: 2px 0 2px 0;
+	border-radius: 5px 5px 5px 5px; 
+	-moz-border-radius: 5px 5px 5px 5px;
+}
+#lang-box li:hover{
+	background: #EAEAEA;
+	font-weight: bold;
+	box-shadow: inset 1px 1px 2px #333; 
+	-webkit-box-shadow: inset 1px 1px 2px #333; 
+	-moz-box-shadow: inset 1px 1px 2px #333;
+}
+#lang-box li img.flag{
+	width: 30px;
+	height: 20px;
+	margin-top: 3px;
+	vertical-align: middle;
+}
+
+/*Logout button*/
+#logoutButtonId{
+	float: right;
+	width: 160px;
+	height: 30px;
+	margin-top: 8px;
+	margin-left: 10px;
+	font-weight:bold;
+	font-size: 14px;
+	padding-left: 5px;
+	padding-top: 2px;
+	color: #FFF;
+	border-radius: 5px; 
+	-moz-border-radius: 5px;
+	background-color: #4BB850;
+	box-shadow: 2px 0 3px #333; 
+	-webkit-box-shadow: 2px 0 3px #333; 
+	-moz-box-shadow: 2px 0 3px #333;
+	z-index:100;
+	}
+
+#logoutButtonId:hover{  /* Behaviour when the mouse is over */
+
+	background-color: #FFF;
+	height: 26px;
+	color: #4FA600;
+	cursor: pointer;
+	border-radius: 5px; 
+	-moz-border-radius: 5px;
+	box-shadow: none !important; 
+	-webkit-box-shadow: none !important; 
+	-moz-box-shadow: none !important;
+}
+
+/*Horizontal navigation menu*/
+#bottom-menu{
+	position: relative;
+	z-index: 8;
+	width: 100%;
+	height: 30px;
+	clear: both;
+}
+/*Links in menu*/
+#bottom-menu a{
+	color: #000;
+	text-decoration:none;
+}
+/*Green background with inset drop shadow- used in multiple places*/
+.green-with-inset{
+	background-color: #009B3E;
+	color: #FFF;
+	box-shadow: inset 2px 2px 5px #333; -webkit-box-shadow: inset 2px 2px 5px #333; -moz-box-shadow: inset 2px 2px 5px #333;
+}
+/*Tabs in the bottom menu*/
+#bottom-menu div.section{
+	float: left;
+	overflow: hidden;
+	width: 140px;
+	height: 19px;
+	margin-top: 8px;
+	margin-left: 10px;
+	font-weight:bold;
+	font-size: 14px;
+	padding-left: 5px;
+	padding-top: 2px;
+	color: #FFF;
+	border-radius: 5px 5px 0 0; -moz-border-radius: 5px 5px 0 0;
+	background-color: #4BB850;
+	box-shadow: 2px 0 3px #333; 
+	-webkit-box-shadow: 2px 0 3px #333; -moz-box-shadow: 2px 0 3px #333;
+	z-index:100;
+}
+.current-section{
+	background-color: #FFF !important;
+	color: #4FA600 !important;
+	height: 22px !important;
+	box-shadow: none !important; 
+	-webkit-box-shadow: none !important; 
+	-moz-box-shadow: none !important;
+}
+/*Hover over tabs in the bottom menu*/
+#bottom-menu div.section:hover{
+	background-color: #FFF;
+	height: 20px;
+	color: #4FA600;
+	cursor: pointer;
+	border-radius: 5px 5px 0 0; 
+	-moz-border-radius: 5px 5px 0 0;
+	box-shadow: none !important; 
+	-webkit-box-shadow: none !important; 
+	-moz-box-shadow: none !important;
+}
+/*Lists under tabs*/
+#bottom-menu div.section ul{
+	padding: 0 3px 0 3px;
+	margin: 2px 0 2px 0;
+	list-style: none;
+	cursor: pointer;
+}
+/*List items under tabs*/
+#bottom-menu div.section ul li{
+	text-align:left;
+	font-size: 13px;
+	color: #000;
+	font-weight:normal;
+	padding: 0 5px 4px 5px;
+	margin: 2px 0 2px 0;
+	border-radius: 5px 5px 5px 5px; 
+	-moz-border-radius: 5px 5px 5px 5px;
+	float:none;
+}
+/*Right arrows in list items*/
+#bottom-menu div.section ul li span{
+	float: right;
+}
+/*List items on hover*/
+#bottom-menu div.section ul li:hover{
+	background-color: #A0A0A0;
+	color: #FFF;
+	font-weight:bold;
+	box-shadow: inset 1px 1px 2px #333; -webkit-box-shadow: inset 1px 1px 2px #333; -moz-box-shadow: inset 1px 1px 2px #333;
+}
+/*List item hover link color*/
+#bottom-menu div.section ul li:hover a{
+	color: #FFF;
+}
+/*Submenu*/
+#bottom-menu div.section ul ul.submenu{
+	display: none;
+	width: 150px;
+	position: absolute;
+	margin-top: -18px;
+	margin-left: 163px;
+	border: 1px #AAA solid;
+	border-radius: 5px; -moz-border-radius: 5px;
+	box-shadow: 2px 2px 3px #333; -webkit-box-shadow: 2px 2px 3px #333; -webkit-box-shadow: 2px 2px 3px #333;
+}
+/*Submenu list item*/
+#bottom-menu div.section ul li:hover ul.submenu li{
+	margin: 2px 0 2px 0;
+}
+/*Submenu list item link*/
+#bottom-menu div.section ul li:hover ul.submenu li a{
+	color: #000;
+}
+/*Hover over submenu list item*/
+#bottom-menu div.section ul li:hover ul.submenu li:hover{
+	background-color: #EAEAEA;
+	color: #000;
+}
+/*Makes the hidden submenu appear out of thin ... pixels*/
+#bottom-menu div.section ul li:hover ul.submenu{
+	display: block;
+	background-color: #FFF;
+}
+/*Holds side menu and page*/
+#content{
+	position: absolute;
+	z-index: -1;
+	width: 100%;
+	margin-top: 10px;
+	/* min-height: 250px; */
+}
+/*Current page content area*/
+#page{
+	position: absolute; /*relative*/
+	z-index: 0;
+	background-color: #FFF; /*new*/
+	/* min-height: 250px; */
+	width: auto !important;
+}
+/*Little arrow to show or hide the left menu*/
+#side-menu-toggle-div{
+	position: absolute;
+	margin-top: -5px;
+	height: 10px;
+	z-index: 50;
+	cursor: pointer;
+}
+#side-menu-toggle-div span{
+	cursor: pointer;
+}
+/*Footer below the content box*/
+#footer{
+	font-size: .7em;
+	text-align: center;
+	height: 26px;
+	padding-top: 3px;
+}
+/*Layout styles*/
+.custom{
+	margin-left: 20px;
+}
+.customFrame{
+	border: 0;
+	width: 98%;
+	height: 500px;
+}
+.wrapper{
+	position: relative;
+	margin-left: 20px;
+	min-width: 725px;
+	width: 95%;
+}
+.sectionImage{
+	top: 20%;
+	text-align: center;
+}
+.half-width{
+	width: 40% !important;
+}
+.float-left{
+	float: left;
+	margin-left: 5px;
+}
+.float-right{
+	float: right;
+	margin-right: 5px;
+}
+.multiple-floats{
+	margin-right:40px;
+}
+.clear-div{
+	clear: both;
+}
+.no-style-tbl td{
+	border: 0;
+	font-size: 14px;
+}
+.no-style-tbl {
+	width: 100%;
+}
+.align-right{
+	text-align: right !important;
+}
+.align-center{
+	text-align: center !important;
+}
+.align-left{
+	text-align: left !important;
+}
+.lg-border-radius{
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-o-border-radius: 10px;
+}
+.lg-border-radius-left{
+	border-radius: 10px 0 0 10px;
+	-moz-border-radius: 10px 0 0 10px;
+	-webkit-border-radius: 10px 0 0 10px;
+	-o-border-radius: 10px 0 0 10px;
+}
+.lg-border-radius-right{
+	border-radius: 0 10px 10px 0;
+	-moz-border-radius: 0 10px 10px 0;
+	-webkit-border-radius: 0 10px 10px 0;
+	-o-border-radius: 0 10px 10px 0;
+}
+.sm-border-radius{
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-o-border-radius: 5px;
+}
+.sm-border-radius-left{
+	border-radius: 5px 0 0 5px;
+	-moz-border-radius: 5px 0 0 5px;
+	-webkit-border-radius: 5px 0 0 5px;
+	-o-border-radius: 5px 0 0 5px;
+}
+.sm-border-radius-right{
+	border-radius: 0 5px 5px 0;
+	-moz-border-radius: 0 5px 5px 0;
+	-webkit-border-radius: 0 5px 5px 0;
+	-o-border-radius: 0 5px 5px 0;
+}
+/*Throw stuff off the screen*/
+.hideMe{
+	margin-left: -9999px;
+}
+.ui-dialog-titlebar { padding: .2em .4em !important; }
+.ui-widget-header{background: #FFF; color:#4FA600; font-weight:bold; border: 0; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #EAEAEA;}
+.ui-dialog-buttonpane{border:0;}
+.ui-dialog-title, .ui-dialog-content{font-size: 14px;}
+.dialog-button{background: #FFF; border:0; margin-left: 20px !important; cursor:pointer; float:right; text-align:center; font-size: 10px; color: #FFF;}
+.ui-tooltip{font-size:12px; padding: 2px 4px;}
