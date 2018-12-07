@@ -71,9 +71,7 @@ function buildList(request){
 function getValues(request){
     var xhrVariable = createXMLHttpRequest();
     xhrVariable.open("POST", "/plcExchange/getValues/", false);
-    for (var g in GUID) {
-        xhrVariable.setRequestHeader('GUID_' + g, GUID[g]);
-    }
+    xhrVariable.setRequestHeader('GUID_A', GUID['A']);
     xhrVariable.setRequestHeader('Content-Type', 'text/plain;charset=UTF-8');
     xhrVariable.send(request);
     if (xhrVariable.readyState == 4 && xhrVariable.status == 200) {
@@ -96,9 +94,7 @@ function getValues(request){
 function getValuesAsync(request, callback){
     var xhrVariable = createXMLHttpRequest();
     xhrVariable.open("POST", "/plcExchange/getValues/", false);
-    for (var g in GUID) {
-        xhrVariable.setRequestHeader("GUID_" + g, GUID[g]);
-    }
+    xhrVariable.setRequestHeader('GUID_A', GUID['A']);
     xhrVariable.send(request);
     if (xhrVariable.readyState == 4 && xhrVariable.status == 200) {
         callback(xhrVariable.responseText);
@@ -117,9 +113,7 @@ function refreshValues(ListID){
     var xhrVariable = createXMLHttpRequest();
     xhrVariable.open("GET", "/plcExchange/getValues/", false);
     xhrVariable.setRequestHeader("ListID", ListID);
-    for (var g in GUID) {
-        xhrVariable.setRequestHeader("GUID_" + g, GUID[g]);
-    }
+    xhrVariable.setRequestHeader('GUID_A', GUID['A']);
      try {
          xhrVariable.send(null);
     } catch(e) {
@@ -135,9 +129,7 @@ function refreshValues(ListID){
     var xhrVariable = createXMLHttpRequest();
     xhrVariable.open("GET", "/plcExchange/getValues/", false);
     xhrVariable.setRequestHeader("ListID", ListID);
-    for (var g in GUID) {
-        xhrVariable.setRequestHeader("GUID_" + g, GUID[g]);
-    }
+    xhrVariable.setRequestHeader('GUID_A', GUID['A']);
      try {
          xhrVariable.send(null);
     } catch(e) {
@@ -184,9 +176,7 @@ function getRTValue( variableName, format ) {
         request = variableAddr + ';' + variableType + ';' + variableFormat + ';' ;
         var xhrVariable = createXMLHttpRequest();
         xhrVariable.open("POST", "/plcExchange/getValues/", false);
-        for (var g in GUID) {
-            xhrVariable.setRequestHeader('GUID_' + g, GUID[g]);
-        }
+        xhrVariable.setRequestHeader('GUID_A', GUID['A']);
         xhrVariable.setRequestHeader('Content-Type', 'text/plain;charset=UTF-8');
         xhrVariable.send(request);
         if (xhrVariable.readyState == 4 && xhrVariable.status == 200) {
@@ -235,9 +225,7 @@ function setRTValue( variableName, format, value ) {
         }
         var xhrVariable = createXMLHttpRequest();
         xhrVariable.open("POST", "/plcExchange/setValues/", false);
-        for (var g in GUID) {
-            xhrVariable.setRequestHeader('GUID_' + g, GUID[g]);
-        }
+        xhrVariable.setRequestHeader('GUID_A', GUID['A']);
         xhrVariable.setRequestHeader('Content-Type', 'text/plain;charset=UTF-8');
         xhrVariable.send(request);
 		if (xhrVariable.status != 200) {alert("Operation not Allowed");}
