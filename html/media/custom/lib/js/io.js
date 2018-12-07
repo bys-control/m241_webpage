@@ -196,7 +196,8 @@ function main() {
         var name = "";
         var ioMapping = "";
         var ioAddress = "";
-        var bracketPos = 0;
+        var startBracketPos = 0;
+        var endBracketPos = 0;
         var count = 0;
         var pos = 0;
         ioStore.removeAll();
@@ -204,9 +205,14 @@ function main() {
             name = availableVariables[i][0];
             if (name.substr(0, IOGlobal.length) == IOGlobal) {
                 if (pos >= ioOffset && count < MAX_IO) {
-                    bracketPos = name.indexOf('(');
-                    ioMapping = name.substr(IOGlobal.length, bracketPos - IOGlobal.length - 1);
-                    ioAddress = name.substr(bracketPos + 1, name.length - 2 - bracketPos);
+                    startBracketPos = name.indexOf('(');
+                    endBracketPos = name.indexOf(')');
+                    if( startBracketPos>=0 && endBracketPos>=0 ) {
+                        ioAddress = name.slice(startBracketPos+1, endBracketPos);
+                    }
+                    else
+                        ioAddress = null;
+                    ioMapping = name.replace(' (' + ioAddress + ')', '');
                     var io = new ioVar({
                         mapping: ioMapping,
                         address: ioAddress,
