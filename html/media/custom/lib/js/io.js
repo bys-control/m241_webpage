@@ -212,7 +212,7 @@ function main() {
                         ioAddress = name.slice(startBracketPos+1, endBracketPos);
                     }
                     else
-                        ioAddress = null;
+                        ioAddress = "";
                     ioMapping = name.replace(' (' + ioAddress + ')', '');
                     var io = new ioVar({
                         mapping: ioMapping,
