@@ -5,7 +5,8 @@ function main() {
     var timer;
     var period = "1000";
     var requestPending;
-    var IOGlobal = "IoConfig_Globals_Mapping.";
+    //var IOGlobal = "IoConfig_Globals_Mapping.";
+    var IOGlobal = "";
     var listID;
     var MAX_IO = 20;
     var ioOffset = 0;
