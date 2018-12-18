@@ -127,6 +127,13 @@ define([],
 								fileName: "maintenance/maint/logfile/logfile.htm"
 							},
 							{
+								displayName: "Application Log Files",
+								id: "datalog",
+								url: "#maintenance/maint/datalog",
+								hidden: false,
+								fileName: "maintenance/maint/datalog/datalog.htm"
+							},
+							{
 								displayName: "EIP config files",
 								id: "eipconf",
 								url: "#maintenance/maint/eipconf",
